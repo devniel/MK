@@ -44,29 +44,6 @@ function startGame(sprites){
 
 	var CONTROLLED = liuKan2;
 
-	/*
-		CREATE TOOLTIPS
-	*/
-
-	var tp = document.createElement("div");
-	tp.style.position = "absolute";
-	tp.style.top = "50px";
-	tp.style.left = "50px";
-	tp.style.background = "#000";
-	tp.style.color = "#FFF";
-	tp.style.font = "10px Tahoma";
-	tp.style.width = "auto";
-	tp.style.height = "auto";
-	tp.style.padding = "5px";
-	tp.style.borderRadius = "3px";
-
-	tp.innerHTML = "Nick : " + "dnielF" + "<br/>" +
-				"HP : " + "100" + "<br/>" +
-				"MP : " + "50" + "<br/>" +
-				"MS : " + "60MS" + "<br/>";
-
-	document.body.appendChild(tp);
-
 
 	// CONTROLLER
 	// Keyboard input with customisable repeat (set to 0 for no key repeat)
@@ -146,7 +123,7 @@ function startGame(sprites){
 	window.addEventListener("keyup",function(event){
 		if(CONTROLLED != null){
 			if(CONTROLLED.getState() != "pateando"){
-				CONTROLLED.setState("respirando");	
+				CONTROLLED.setState("idle");	
 			}
 			event.preventDefault();		
 		}

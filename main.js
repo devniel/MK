@@ -8,9 +8,9 @@ window.onload = function(){
 
 	var images = {
 		liukan : {
-			respirando : [],
+			idle : [],
 			pateando : [],
-			caminando : []
+			moving : []
 		}
 	}
 
@@ -18,7 +18,7 @@ window.onload = function(){
 	for(var i=1;i<=16;i++){
 		image = new Image();
 		image.src = "images/sprites/liu/liu" + i + ".png"
-		images.liukan.respirando.push(image);
+		images.liukan.idle.push(image);
 		image.onload = incrementAndCheckLoading;
 	}
 
@@ -32,7 +32,7 @@ window.onload = function(){
 	for(var i=1;i<=8;i++){
 		image = new Image();
 		image.src = "images/sprites/liu_caminando/liu_caminando" + i + ".png"
-		images.liukan.caminando.push(image);
+		images.liukan.moving.push(image);
 		image.onload = incrementAndCheckLoading;
 	}
 	

@@ -14,9 +14,15 @@ function Character(){
 
 	// SPRITES
 
+	/*
+	 * Default animations
+	 * idle -> "breathing"
+	 * moving -> "walking"
+	*/
+
 	this.sprites = {
-		respirando : [],
-		caminando :[],
+		idle : [],
+		moving :[],
 		pateando :[],
 
 	};
@@ -25,10 +31,10 @@ function Character(){
 
 	this.width = null;
 	this.height = null;
-	this.velocity = 1;
+	this.velocity = 5;
 	this.direction = null;
 
-	// STATE - respirando, caminando, pateando, saltando
+	// STATE - idle, moving, pateando, saltando
 
 	this.state = {
 		name : null,
@@ -43,9 +49,9 @@ function Character(){
 	// INITIAL STATE
 
 	this.setInitialState = function(){
-		this.state.name = "respirando";
+		this.state.name = "idle";
 		this.state.frame = 0;
-		this.state.sprites = this.sprites.respirando;
+		this.state.sprites = this.sprites.idle;
 		
 		/*
 		* A shortcut for this.state.sprites[this.state.frame] is this.getActualFrame();
@@ -60,22 +66,29 @@ function Character(){
 	this.setState = function(action){
 		if(this.state.name != action){
 			this.state.name = action;
+			// Number of frame
 			this.state.frame = 0;
 
 			switch(action){
-				case "respirando" :
-					this.state.sprites = this.sprites.respirando;
+				case "idle" :
+					this.state.sprites = this.sprites.idle;
+					// Index of frame
 					this.state.action.step = 0;
+					// Number of sprites
 					this.state.action.steps = this.state.sprites.length;
 					break;
-				case "caminando" :
-					this.state.sprites = this.sprites.caminando;
+				case "moving" :
+					this.state.sprites = this.sprites.moving;
+					// Index of frame
 					this.state.action.step = 0;
+					// Number of sprites
 					this.state.action.steps = this.state.sprites.length;
 					break;
 				case "pateando" :
 					this.state.sprites = this.sprites.pateando;
+					// Index of frame
 					this.state.action.step = 0;
+					// Number of sprites
 					this.state.action.steps = this.state.sprites.length;
 					break;
 			}
@@ -161,8 +174,8 @@ function Character(){
 	}
 	
 	this.setSprites = function(sprites){
-		this.sprites.respirando = sprites.liukan.respirando;
-		this.sprites.caminando = sprites.liukan.caminando;
+		this.sprites.idle = sprites.liukan.idle;
+		this.sprites.moving = sprites.liukan.moving;
 		this.sprites.pateando = sprites.liukan.pateando;
 	}
 	
@@ -408,8 +421,12 @@ function Character(){
 	}
 	
 	// DETECT COLLISION WITH A MASK
+	
+	// Who hits whom?
 	this.detectCollision = function(){
 		var imageData = this.getMaskPixels();
+
+		// Si su último estado fue diferente de atacar entonces fue herido.
 
 		for(var i=0;i<this.getPixels().length;i++){
 			var _pixel = this.getPixels()[i];
@@ -438,7 +455,7 @@ function Character(){
 	// MOVE RIGHT	
 	this.moveRight = function(){
 		this.setDirection("right");
-		this.setState("caminando");
+		this.setState("moving");
 		
 		var position = this.getPosX();
 		position += this.velocity;
@@ -448,7 +465,7 @@ function Character(){
 	// MOVE LEFT	
 	this.moveLeft = function(){
 		this.setDirection("left");
-		this.setState("caminando");
+		this.setState("moving");
 		
 		var position = this.getPosX();
 		position -= this.velocity;
@@ -499,15 +516,15 @@ function Character(){
 				console.log(this.state.name);
 			}*/
 
-			//if(this.state.name == "caminando"){
-			if(this.state.name != "respirando")
+			//if(this.state.name == "moving"){
+			if(this.state.name != "idle")
 				//console.log(this.state.action.step);
 				if(this.state.action.step < this.state.action.steps){
 					this.state.action.step++;
 					console.log(this.state.action.step)
 					
 				}else{
-					this.setState("respirando");
+					this.setState("idle");
 				}
 			//}
 
